@@ -1,0 +1,40 @@
+import com.mongodb.*;
+public class JavaMongo 
+{
+public static void main(String[] args) {
+// TODO Auto-generated method stub
+try {
+MongoClient mongoClient = new MongoClient( "localhost" , 27017 );
+DB db = mongoClient.getDB( "MyDB" );
+DBCollection coll = db.createCollection("Student",null);
+BasicDBObject d1 = new BasicDBObject("rno","1").append("name","Ram");
+BasicDBObject d2 = new
+BasicDBObject("rno","2").append("name","Priya");
+BasicDBObject d3 = new
+BasicDBObject("rno","3").append("name","Poonam");
+//Insert
+coll.insert(d1);
+coll.insert(d2);
+coll.insert(d3);
+System.out.println("Insert Done..!!!");
+DBCursor cursor = coll.find();
+while (cursor.hasNext())
+{
+System.out.println(cursor.next());
+}
+BasicDBObject R1 = new BasicDBObject("name", "Priya");
+coll.remove(R1);
+System.out.println("\nOutput after removing Priya document..");
+cursor = coll.find();
+while (cursor.hasNext())
+{
+System.out.println(cursor.next());
+}
+}
+catch(Exception e)
+{
+e.printStackTrace();
+}
+}
+}
+
